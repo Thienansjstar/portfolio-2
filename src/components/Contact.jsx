@@ -1,9 +1,49 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { Copy, Check, Mail, Github, Linkedin } from 'lucide-react'
 import Magnetic from './Magnetic'
 import Section from './Section'
 import { profile } from '../data/content'
+
+function BottomCodeStrips() {
+  const reduced = useReducedMotion()
+  const lines = useMemo(() => {
+    const chars = '0123456789abcdef'
+    let s = 0xa3ff
+    const rand = () => { s = (s * 16807) % 2147483647; return s / 2147483647 }
+    return Array.from({ length: 22 }, () =>
+      Array.from({ length: 150 }, () => chars[Math.floor(rand() * 16)]).join('')
+    )
+  }, [])
+
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-y-0 select-none overflow-hidden"
+      style={{
+        left: 'calc(50% - 50vw)',
+        width: '100vw',
+        maskImage: 'linear-gradient(to left, black 0%, transparent 65%), linear-gradient(to top, black 0%, transparent 85%)',
+        maskComposite: 'intersect',
+        WebkitMaskImage: 'linear-gradient(to left, black 0%, transparent 65%), linear-gradient(to top, black 0%, transparent 85%)',
+        WebkitMaskComposite: 'source-in',
+      }}
+    >
+      <div className="absolute inset-0 opacity-[0.32]">
+        {lines.map((line, i) => (
+          <motion.p
+            key={i}
+            className="whitespace-nowrap font-mono text-[13px] leading-7 text-accent"
+            animate={reduced ? {} : { x: ['0%', '-50%'] }}
+            transition={{ repeat: Infinity, duration: 18 + i * 1.5, ease: 'linear' }}
+          >
+            {line}{line}
+          </motion.p>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 export default function Contact() {
   const reduced = useReducedMotion()
@@ -26,7 +66,8 @@ export default function Contact() {
   }
 
   return (
-    <Section id="contact" eyebrow="contact" title="Let's build something.">
+    <Section id="contact" eyebrow="contact" title="Let's build something." className="relative">
+      <BottomCodeStrips />
       <p className="max-w-xl text-base leading-relaxed text-muted sm:text-lg">
         I'm graduating from UW in 2026 and looking for software engineering roles — especially
         anything touching security. My inbox is always open, whether it's an opportunity, a

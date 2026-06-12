@@ -148,6 +148,23 @@ export default function Hero({ onSecretTrigger }) {
             )}
           </motion.h1>
 
+          {/* Whimsical click-me nudge */}
+          <motion.p
+            initial={reduced ? false : { opacity: 0, x: -6 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 1.6 }}
+            className="mt-1 font-mono text-[11px] text-muted select-none"
+          >
+            <motion.span
+              animate={reduced ? {} : { rotate: [0, -10, 10, -6, 6, 0] }}
+              transition={{ delay: 2.2, duration: 0.5, repeat: Infinity, repeatDelay: 4 }}
+              className="inline-block mr-1"
+            >
+              👆
+            </motion.span>
+            psst… click my name
+          </motion.p>
+
           <motion.p
             initial={reduced ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}

@@ -31,14 +31,13 @@ export const profile = {
     ],
   },
   about: [
-    `I'm a computer science student at the University of Washington with a focus on security — the kind of focus that means implementing SHA-3 from scratch against NIST test vectors for fun, then red-teaming my classmates' code for sport.`,
-    `Before security pulled me in, games did. I've shipped multiplayer browser games, Unity platformers, and roguelikes — and that builder's instinct still shapes how I work: make it real, put it in front of people, then make it better.`,
-    `Right now I'm building a secure document management system serving 500+ users, and looking for a team where I can do security-minded engineering at a bigger scale.`,
+    `Hi, I'm Thien-An Tran, a computer science student at the University of Washington (Class of 2026) with a deep passion for building secure, scalable, and intelligent software.`,
+    `My love for coding started with the thrill of bringing ideas to life — whether that was developing a real-time multiplayer game from scratch or building platforms that help people connect. There is something incredibly rewarding about taking a blank screen and turning it into a functional tool that people can actually use.`,
+    `As I've progressed through my degree, my interests have gravitated toward the complex puzzles of cryptography, AI, and secure systems architecture. Recently, I've been heavily focused on building hardened applications and implementing encryption standards from the ground up. Whether I'm designing a Bayesian reasoning engine for an autonomous agent, managing sensitive databases for my local community, or red-teaming a peer's codebase to find vulnerabilities, I love the challenge of writing code that isn't just functional, but rock-solid and secure.`,
+    `When I'm not debugging a tricky stream cipher or optimizing a React frontend, I'm always looking for the next challenging project to tackle.`,
   ],
   currently: [
-    { label: 'Building', value: 'Secure document management on Azure' },
-    { label: 'Studying', value: 'Cryptography & secure coding @ UW' },
-    { label: 'Playing with', value: 'Schnorr signatures & elliptic curves' },
+    { label: 'Building', value: 'A computer vision pipeline for real-time object detection' },
   ],
 };
 
