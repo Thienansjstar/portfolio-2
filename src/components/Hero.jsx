@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useRef, useEffect } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Github, Linkedin, ChevronDown, FileDown } from 'lucide-react'
 import Magnetic from './Magnetic'
@@ -54,19 +54,57 @@ const letter = {
   show: { opacity: 1, y: 0, rotate: 0, transition: { type: 'spring', stiffness: 140, damping: 14 } },
 }
 
+// Glitch character pool — binary, hex, error symbols, block chars
+const GLITCH = '01010110100111001█░▓!@#ERR><|\\01XE01?!10'
+
 export default function Hero({ onSecretTrigger }) {
   const reduced = useReducedMotion()
   const [clicks, setClicks] = useState(0)
-  function handleNameClick() {
-    const next = clicks + 1
-    setClicks(next)
-    if (next >= 5) {
-      setClicks(0)
-      onSecretTrigger()
-    }
-  }
+  const [ghost, setGhost]   = useState(null) // null = show real name
+  const rafRef = useRef(null)
+
+  useEffect(() => () => { if (rafRef.current) cancelAnimationFrame(rafRef.current) }, [])
 
   const name = profile.name
+
+  function handleNameClick() {
+    // Easter egg counter
+    const next = clicks + 1
+    setClicks(next)
+    if (next >= 5) { setClicks(0); onSecretTrigger() }
+
+    // Glitch animation
+    if (rafRef.current) cancelAnimationFrame(rafRef.current)
+    const orig = name.split('')
+    const dur  = reduced ? 0 : 700
+    const t0   = performance.now()
+    let lastTick = 0
+
+    const step = (now) => {
+      const p = Math.min((now - t0) / dur, 1)
+
+      if (p >= 1) { setGhost(null); return }
+
+      // Throttle to ~50 ms per frame for that choppy terminal feel
+      if (now - lastTick > 48) {
+        lastTick = now
+        const corr = Math.pow(1 - p, 0.5) // corruption intensity decays
+        setGhost(orig.map(ch => {
+          if (ch === ' ') return { ch, color: null }
+          const corrupt = Math.random() < corr
+          return {
+            ch:    corrupt ? GLITCH[Math.floor(Math.random() * GLITCH.length)] : ch,
+            color: corrupt ? (Math.random() < 0.55 ? '#f87171' : '#4ade80') : null,
+          }
+        }))
+      }
+
+      rafRef.current = requestAnimationFrame(step)
+    }
+    rafRef.current = requestAnimationFrame(step)
+  }
+
+  const display = ghost ?? name.split('').map(ch => ({ ch, color: null }))
 
   return (
     <section className="relative flex min-h-[92svh] flex-col justify-center pt-24 pb-16">
@@ -94,11 +132,16 @@ export default function Hero({ onSecretTrigger }) {
             title="…something happens if you keep clicking"
             className="flip-name cursor-pointer select-none font-display text-[clamp(2.8rem,8vw,5.8rem)] leading-[1.02] text-balance"
           >
-            {name.split('').map((ch, i) =>
+            {display.map(({ ch, color }, i) =>
               ch === ' ' ? (
                 <span key={i}> </span>
               ) : (
-                <motion.span key={i} variants={letter} className="ch">
+                <motion.span
+                  key={i}
+                  variants={letter}
+                  className="ch"
+                  style={color ? { color } : undefined}
+                >
                   {ch}
                 </motion.span>
               )
