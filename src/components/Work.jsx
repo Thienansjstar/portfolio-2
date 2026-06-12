@@ -16,10 +16,17 @@ function TiltCard({ children, className = '' }) {
   const rotateY = useTransform(sry, v => `${v}deg`)
 
   function onMove(e) {
-    if (!ref.current || reduced) return
-    const rect = ref.current.getBoundingClientRect()
-    ry.set(((e.clientX - rect.left) / rect.width  - 0.5) * 8)
-    rx.set((0.5 - (e.clientY - rect.top)  / rect.height) * 8)
+    const el = ref.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    const px = (e.clientX - rect.left) / rect.width
+    const py = (e.clientY - rect.top) / rect.height
+    el.style.setProperty('--mx', `${px * 100}%`)
+    el.style.setProperty('--my', `${py * 100}%`)
+    if (!reduced) {
+      ry.set((px - 0.5) * 8)
+      rx.set((0.5 - py) * 8)
+    }
   }
 
   function onLeave() {
