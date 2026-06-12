@@ -108,26 +108,10 @@ body {
   70%, 100% { transform: scale(2.6); opacity: 0; }
 }
 
-/* Cursor spotlight on cards (driven by JS custom props) */
+/* Cards need relative + overflow for the hash-stream backdrop */
 .spotlight-card {
   position: relative;
   overflow: hidden;
-}
-.spotlight-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  background: radial-gradient(
-    480px circle at var(--mx, 50%) var(--my, 50%),
-    rgb(var(--accent) / 0.1),
-    transparent 65%
-  );
-}
-.spotlight-card:hover::before {
-  opacity: 1;
 }
 
 /* JumpMan pixel sprite for the easter egg */

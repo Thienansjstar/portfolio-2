@@ -102,6 +102,21 @@ export const projects = [
     github: 'https://github.com/Thienansjstar',
   },
   {
+    title: 'B+ Tree Index Engine',
+    file: 'BTreeIndex.java',
+    year: '2026',
+    stack: ['Java', 'B+ Tree', 'SQL Parsing', 'Database Systems'],
+    description:
+      'A from-scratch in-memory B+ tree index integrated into a relational database engine, accelerating point and range queries with no external libraries.',
+    points: [
+      'Degree-10 B+ tree built from scratch: insertion, node splitting, and linked leaf traversal',
+      'Parsed and executed CREATE INDEX SQL statements with automatic index selection on equality queries',
+      'Range query acceleration via linked leaf nodes for WHERE col > a AND col < b patterns',
+      'Bulk CSV ingestion via LOAD DATA INFILE with index construction on indexed columns',
+    ],
+    github: 'https://github.com/Thienansjstar',
+  },
+  {
     title: 'Nightfall Survivors',
     file: 'nightfall.js',
     year: '2026',

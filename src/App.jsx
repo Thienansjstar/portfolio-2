@@ -9,6 +9,7 @@ import Skills from './components/Skills'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import EasterEgg from './components/EasterEgg'
+import Cursor from './components/Cursor'
 
 export default function App() {
   const [theme, setTheme] = useState('dark')
@@ -27,6 +28,7 @@ export default function App() {
         Skip to content
       </a>
 
+      <Cursor />
       <ScrollProgress />
       <Nav theme={theme} onToggleTheme={() => setTheme(t => (t === 'dark' ? 'light' : 'dark'))} />
 

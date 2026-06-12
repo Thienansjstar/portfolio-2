@@ -1,42 +1,43 @@
-import React, { useRef, useState, useMemo } from 'react'
+import React, { useState, useMemo } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Github, Linkedin, ChevronDown, FileDown } from 'lucide-react'
 import Magnetic from './Magnetic'
 import CodingGuy from './CodingGuy'
 import { profile } from '../data/content'
 
-function DiagonalCode() {
+function HeroCodeStrips() {
   const reduced = useReducedMotion()
   const lines = useMemo(() => {
     const chars = '0123456789abcdef'
     let s = 0xd1a6
     const rand = () => { s = (s * 16807) % 2147483647; return s / 2147483647 }
-    return Array.from({ length: 30 }, () =>
-      Array.from({ length: 200 }, () => chars[Math.floor(rand() * 16)]).join('')
+    return Array.from({ length: 22 }, () =>
+      Array.from({ length: 150 }, () => chars[Math.floor(rand() * 16)]).join('')
     )
   }, [])
 
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 overflow-hidden"
+      className="pointer-events-none absolute inset-y-0 select-none overflow-hidden"
       style={{
-        maskImage: 'linear-gradient(to right, black 0%, transparent 62%)',
-        WebkitMaskImage: 'linear-gradient(to right, black 0%, transparent 62%)',
+        left: 'calc(50% - 50vw)',
+        width: '100vw',
+        maskImage: 'linear-gradient(to right, black 0%, transparent 65%), linear-gradient(to bottom, black 0%, transparent 85%)',
+        maskComposite: 'intersect',
+        WebkitMaskImage: 'linear-gradient(to right, black 0%, transparent 65%), linear-gradient(to bottom, black 0%, transparent 85%)',
+        WebkitMaskComposite: 'source-in',
       }}
     >
-      <div
-        className="absolute opacity-[0.13]"
-        style={{ transform: 'rotate(-42deg)', transformOrigin: '0% 100%', left: '-5%', bottom: '-20%', width: '170%' }}
-      >
+      <div className="absolute inset-0 opacity-[0.32]">
         {lines.map((line, i) => (
           <motion.p
             key={i}
-            className="whitespace-nowrap font-mono text-[11px] leading-7 text-accent"
-            animate={reduced ? {} : { x: i % 2 === 0 ? ['0%', '-1%'] : ['-1%', '0%'] }}
-            transition={{ repeat: Infinity, repeatType: 'mirror', duration: 35 + i * 3, ease: 'linear' }}
+            className="whitespace-nowrap font-mono text-[13px] leading-7 text-accent"
+            animate={reduced ? {} : { x: ['0%', '-50%'] }}
+            transition={{ repeat: Infinity, duration: 18 + i * 1.5, ease: 'linear' }}
           >
-            {line}
+            {line}{line}
           </motion.p>
         ))}
       </div>
@@ -55,10 +56,7 @@ const letter = {
 
 export default function Hero({ onSecretTrigger }) {
   const reduced = useReducedMotion()
-  const heroRef = useRef(null)
   const [clicks, setClicks] = useState(0)
-  const [glow, setGlow] = useState({ x: 50, y: 50 })
-
   function handleNameClick() {
     const next = clicks + 1
     setClicks(next)
@@ -68,33 +66,11 @@ export default function Hero({ onSecretTrigger }) {
     }
   }
 
-  function handleMove(e) {
-    if (reduced || !heroRef.current) return
-    const rect = heroRef.current.getBoundingClientRect()
-    setGlow({
-      x: ((e.clientX - rect.left) / rect.width) * 100,
-      y: ((e.clientY - rect.top) / rect.height) * 100,
-    })
-  }
-
   const name = profile.name
 
   return (
-    <section
-      ref={heroRef}
-      onMouseMove={handleMove}
-      className="relative flex min-h-[92svh] flex-col justify-center pt-24 pb-16"
-    >
-      <DiagonalCode />
-
-      {/* Cursor-aware violet glow (desktop only, very faint) */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 hidden opacity-60 lg:block"
-        style={{
-          background: `radial-gradient(640px circle at ${glow.x}% ${glow.y}%, rgb(var(--accent) / 0.07), transparent 70%)`,
-        }}
-      />
+    <section className="relative flex min-h-[92svh] flex-col justify-center pt-24 pb-16">
+      <HeroCodeStrips />
 
       <div className="grid items-center gap-10 lg:grid-cols-[1.3fr_1fr]">
         {/* Left: name + copy + CTAs */}
