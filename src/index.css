@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- Design tokens ---------- */
+:root {
+  /* warm near-black canvas */
+  --bg: 14 14 16;          /* #0E0E10 */
+  --surface: 23 23 26;     /* #17171A */
+  --line: 39 39 45;        /* #27272D */
+  --ink: 244 244 245;      /* #F4F4F5 */
+  --muted: 142 142 151;    /* #8E8E97 */
+  --accent: 139 92 246;    /* #8B5CF6 deep violet */
+  --accent-soft: 32 26 51; /* #201A33 violet-tinted surface */
+}
+
+html.light {
+  --bg: 250 250 245;       /* #FAFAF5 warm cream */
+  --surface: 255 255 255;
+  --line: 228 228 220;
+  --ink: 24 24 27;
+  --muted: 110 110 118;
+  --accent: 124 58 237;    /* #7C3AED — deeper violet for AA contrast on light */
+  --accent-soft: 237 233 254;
+}
+
+/* ---------- Base ---------- */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgb(var(--bg));
+  color: rgb(var(--ink));
+  font-family: Inter, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgb(var(--accent) / 0.35);
+}
+
+/* Visible, branded keyboard focus */
+:focus-visible {
+  outline: 2px solid rgb(var(--accent));
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------- Utilities ---------- */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .eyebrow {
+    @apply font-mono text-xs uppercase tracking-[0.2em] text-accent;
+  }
+}
+
+/* Scrollbar (subtle, theme-aware) */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: rgb(var(--bg));
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--line));
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--accent) / 0.6);
+}
+
+/* Hero name italic-flip: letters swap to italic on hover */
+.flip-name .ch {
+  display: inline-block;
+  transition: transform 0.25s cubic-bezier(0.3, 1.4, 0.5, 1), color 0.25s ease;
+  font-style: normal;
+}
+.flip-name:hover .ch {
+  font-style: italic;
+  color: rgb(var(--accent));
+}
+.flip-name:hover .ch:nth-child(odd) {
+  transform: translateY(-3px);
+}
+.flip-name:hover .ch:nth-child(even) {
+  transform: translateY(2px);
+}
+
+/* Pulsing availability dot */
+.pulse-dot {
+  position: relative;
+}
+.pulse-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: rgb(var(--accent));
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.7; }
+  70%, 100% { transform: scale(2.6); opacity: 0; }
+}
+
+/* Cursor spotlight on cards (driven by JS custom props) */
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+}
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(
+    480px circle at var(--mx, 50%) var(--my, 50%),
+    rgb(var(--accent) / 0.1),
+    transparent 65%
+  );
+}
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+/* JumpMan pixel sprite for the easter egg */
+.jumpman {
+  width: 28px;
+  height: 28px;
+  image-rendering: pixelated;
+  background:
+    /* head */
+    linear-gradient(rgb(var(--accent)), rgb(var(--accent))) 10px 0 / 8px 8px,
+    /* body */
+    linear-gradient(rgb(var(--ink)), rgb(var(--ink))) 8px 8px / 12px 10px,
+    /* legs */
+    linear-gradient(rgb(var(--accent)), rgb(var(--accent))) 8px 18px / 4px 10px,
+    linear-gradient(rgb(var(--accent)), rgb(var(--accent))) 16px 18px / 4px 10px;
+  background-repeat: no-repeat;
+}
+
+/* Light-mode syntax colours — Tailwind's 400 variants are too pale on a cream background */
+html.light .text-violet-400 { color: rgb(109 40 217); }
+html.light .text-sky-400    { color: rgb(2 105 171); }
+html.light .text-emerald-400 { color: rgb(4 120 87); }
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
