@@ -14,7 +14,7 @@ export const profile = {
   phone: '(206) 883-0263',
   github: 'https://github.com/Thienansjstar',
   linkedin: 'https://www.linkedin.com/in/thienan-tran-0a9803233',
-  resume: '/Thien-An_Tran_Resume.pdf',
+  resume: `${import.meta.env.BASE_URL}Thien-An_Tran_Resume.pdf`,
   education: {
     school: 'University of Washington',
     degree: 'BSc. Computer Science',

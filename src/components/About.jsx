@@ -84,7 +84,7 @@ export default function About() {
       <div className="mt-10 overflow-hidden rounded-2xl border border-line bg-surface">
         <div className="flex items-center gap-4 border-b border-line px-5 py-4">
           <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-accent-soft p-1.5">
-            <img src="/uw-logo.png" alt="University of Washington" className="h-full w-full object-contain" />
+            <img src={`${import.meta.env.BASE_URL}uw-logo.png`} alt="University of Washington" className="h-full w-full object-contain" />
           </span>
           <div>
             <p className="font-medium text-ink">{profile.education.school}</p>
