@@ -70,6 +70,36 @@ export const experience = [
 // `file` powers the IDE-style title bar on each project card.
 export const projects = [
   {
+    title: 'Plately',
+    file: 'plately.tsx',
+    year: '2026',
+    featured: true,
+    stack: ['React', 'Supabase', 'Claude API', 'Cloudflare', 'PostgreSQL'],
+    description:
+      'A full-stack AI-powered nutrition-tracking PWA — log food by photo, barcode, voice, or natural language, with offline-first sync across devices.',
+    points: [
+      'Secure serverless API architecture on Cloudflare Pages Functions, injecting secret keys server-side so no third-party keys are ever exposed to the client',
+      'Anthropic Claude vision + NLP integration with structured-output parsing and multi-provider failover across five nutrition APIs for graceful degradation',
+      'Postgres database with Row-Level Security via Supabase',
+      'Service-worker caching strategy for full offline functionality',
+    ],
+    github: 'https://github.com/Thienansjstar/portfolio-2',
+  },
+  {
+    title: 'Food Image Classifier',
+    file: 'food_classifier.py',
+    year: '2026',
+    stack: ['Python', 'PyTorch', 'Transfer Learning', 'CNN'],
+    description:
+      'A convolutional neural network trained on the Food-101 benchmark to power automated calorie estimation in a nutrition-tracking app.',
+    points: [
+      'Trained on Food-101 (101 categories, 101,000 images), achieving 80% top-1 accuracy on the held-out test set',
+      'Transfer learning from a pre-trained model with data augmentation and fine-tuning for better generalization across food categories',
+      'Built to power automated calorie estimation in Plately',
+    ],
+    github: 'https://github.com/Thienansjstar/portfolio-2',
+  },
+  {
     title: 'Cryptography Library',
     file: 'crypto-lib.java',
     year: '2026',
@@ -214,7 +244,7 @@ export const skills = [
   {
     group: 'Frameworks & Tools',
     file: 'tooling.config',
-    items: ['React', 'Node.js', 'Firebase', 'Microsoft Azure', 'PyTorch', 'OpenCV', 'NumPy', 'Git', 'Socket.IO', 'Phaser', 'Unity', 'Bootstrap', 'Heroku'],
+    items: ['React', 'Node.js', 'Firebase', 'Supabase', 'PostgreSQL', 'Cloudflare', 'Microsoft Azure', 'PyTorch', 'OpenCV', 'NumPy', 'Git', 'Socket.IO', 'Phaser', 'Unity', 'Bootstrap', 'Heroku'],
   },
 ];
 
