@@ -103,7 +103,6 @@ export const projects = [
     title: 'Cryptography Library',
     file: 'crypto-lib.java',
     year: '2026',
-    featured: true,
     stack: ['Java', 'NIST FIPS 202', 'SHA-3', 'SHAKE', 'ECIES', 'Schnorr'],
     description:
       'A from-scratch implementation of modern cryptographic primitives in Java — no libraries, verified against official NIST test vectors.',
