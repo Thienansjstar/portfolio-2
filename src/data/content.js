@@ -10,7 +10,7 @@ export const profile = {
   tagline: 'I build secure systems, full-stack apps, and the occasional video game.',
   location: 'Seattle, WA',
   availability: 'Open to new opportunities',
-  email: 'thienanthedrmer@gmail.com',
+  email: 'thienansjstar@gmail.com',
   phone: '(206) 883-0263',
   github: 'https://github.com/Thienansjstar',
   linkedin: 'https://www.linkedin.com/in/thienan-tran-0a9803233',
